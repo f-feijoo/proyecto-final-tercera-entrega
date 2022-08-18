@@ -15,7 +15,7 @@
   <body>
     <div class="container mt-5">
       <h1>Formulario de registro</h1>
-      <form action="/registro" method="post">
+      <form action="/registro" method="post" enctype="multipart/form-data">
         <input
           type="text"
           name="nombre"
@@ -43,17 +43,21 @@
           required
         />
         <br />
-        <input
-          type="tel"
-          name="telefono"
-          id="telefono"
-          class="form-control"
-          placeholder="Ingrese su telefono"
-          required
-        />
+        <div class="input-group">
+          <span class="input-group-text">+</span>
+          <input
+            type="tel"
+            name="telefono"
+            id="telefono"
+            class="form-control"
+            placeholder="Ingrese su telefono completo"
+            
+            required
+          />
+        </div>
         <br />
         <input
-          type="text"
+          type="file"
           name="avatar"
           id="avatar"
           class="form-control"
@@ -75,7 +79,7 @@
           name="password"
           id="password"
           class="form-control"
-          placeholder="Ingrese su contrasela"
+          placeholder="Ingrese su contraseña"
           required
         />
         <br />

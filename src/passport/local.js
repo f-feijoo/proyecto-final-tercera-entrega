@@ -2,6 +2,8 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import Usuarios from "../daos/usuarios/UsuariosDao.js";
 
+const mailAdministrador = 'franciscofeijoot@gmail.com'
+
 const LocalStrategy = Strategy;
 
 passport.use(
@@ -13,6 +15,10 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, username, password, done) => {
+      let file = req.file;
+            if (!file) {
+                return res.status(400).send({message: "Error al cargar imagen"})
+            }
       let user = { username: username };
       const usuarioBD = await Usuarios.mostrar(user);
       if (usuarioBD) {
@@ -25,9 +31,10 @@ passport.use(
         direccion: req.body.direccion,
         edad: req.body.edad,
         telefono: req.body.telefono,
-        avatar: req.body.avatar
+        avatar: file.path
       });
       done(null, usuarioNuevo);
+      // Aca va el envio del mail
     }
   )
 );
