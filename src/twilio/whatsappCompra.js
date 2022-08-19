@@ -1,7 +1,7 @@
 import twilio from 'twilio'
 import "dotenv/config";
 
-const adminNumber = "+5493415119134"
+const adminNumber = "5493415119134"
 
 const accountSid = process.env.TWILIOID
 const authToken = process.env.TWILIOTOKEN
@@ -12,10 +12,9 @@ export default async(carrito) => {
     try {
         const message = await client.messages.create({
            body: 'Pedido realizado con exito de ' + carrito.usuario + " con ID " + carrito.id,
-           from: 'whatsapp:+12567120062',
+           from: 'whatsapp:+14155238886',
            to: 'whatsapp:+' + adminNumber
         })
-        console.log(message)
      } catch (error) {
         console.log(error)
      }

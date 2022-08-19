@@ -13,7 +13,6 @@ export default async(user) => {
            from: '+12567120062',
            to: '+' + user.telefono
         })
-        console.log(message)
      } catch (error) {
         console.log(error)
      }

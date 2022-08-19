@@ -3,34 +3,31 @@
   <%- include("templates/head") %>
   <body>
     <%- include("templates/navbar") %>
-    <div class="container mt-5 overflow-auto">
-      <table class="table table-success table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Imagen</th>
-          </tr>
-        </thead>
-        <tbody class="overflow-auto" id="caja">
-          <% data.map((x) => { %>
-
-          <tr>
-            <th scope="row"><%= x.id %></th>
-            <td><%= x.nombre %></td>
-            <td><%= x.desc %></td>
-            <td>$<%= x.precio %></td>
-            <td><%= x.stock %></td>
-            <td>
-              <img src=<%= x.img %> width="40" height="40" alt="..."/>
-            </td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+    <div class="container mt-5 overflow-auto text-center">
+      <br />
+      <br />
+      <h1>Bienvenido a Mi Tienda</h1>
+      <br />
+      <br />
+      <p>
+        Para realizar una compra, primero cree un carrito con el boton en la
+        parte inferior de la pagina.
+      </p>
+      <br />
+      <br />
+      <p>
+        Luego proceda a la seccion #Productos donde encontrara los productos
+        disponibles para comprar.
+      </p>
+      <br />
+      <br />
+      <p>
+        Una vez finalizada la eleccion de los productos, dirigirse a la seccion
+        #Carrito donde encontrara un resumen y el boton de compra.
+      </p>
+      <br />
+      <br />
+      <p>Desde ya muchas gracias!</p>
     </div>
     <br />
     <br />
