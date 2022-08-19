@@ -4,6 +4,9 @@ import {
   carritosDao as carritosApi,
 } from "../daos/index.js";
 import Usuarios from "../daos/usuarios/UsuariosDao.js";
+import mailCompraAdmin from "../nodemailer/mailCompra.js";
+import mensajeCliente from "../twilio/mensajeCompra.js"
+import mensajeCompraAdmin from "../twilio/whatsappCompra.js"
 
 const { Router } = express;
 
@@ -24,6 +27,26 @@ carritoRouter.post("/:id/productos", async (req, res) => {
   carrito.productos.push(producto);
   await carritosApi.actualizar(carrito);
   res.send({ message: `Producto agregado, id: ${req.body.id}` });
+});
+
+carritoRouter.get("/:id/productos/finalizar", async (req, res) => {
+  const carrito = await carritosApi.mostrar({ _id: req.params.id });
+  const carritoActualizado = await carritosApi.actualizar({
+    id: carrito.id,
+    productos: carrito.productos,
+    timestamp: carrito.timestamp,
+    usuario: carrito.usuario,
+    finalizado: true
+  })
+  await mailCompraAdmin(req.user, carrito);
+  await mensajeCliente(req.user)
+  await mensajeCompraAdmin(carrito)
+  res.render("comprado", {
+    data: carrito,
+    nroC: "/api/carritos/" + req.params.id + "/productos",
+    idCarrito: req.params.id,
+    user: req.user,
+  });
 });
 
 carritoRouter.post("/", async (req, res) => {

@@ -1,8 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import Usuarios from "../daos/usuarios/UsuariosDao.js";
-
-const mailAdministrador = "franciscofeijoot@gmail.com";
+import sendMail from "../nodemailer/mailRegistro.js"
 
 const LocalStrategy = Strategy;
 
@@ -33,6 +32,7 @@ passport.use(
         telefono: req.body.telefono,
         avatar: "uploads/" + file.filename,
       });
+      await sendMail(usuarioNuevo)
       done(null, usuarioNuevo);
       // Aca va el envio del mail
     }
