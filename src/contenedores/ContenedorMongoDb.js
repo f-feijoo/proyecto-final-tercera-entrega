@@ -1,18 +1,19 @@
 import mongoose from "mongoose";
 import config from "../config.js";
 import { asPOJO, renameField, removeField } from "../utils/objectUtils.js";
-import log4js from "log4js";
+import log4js from "../loggers/config.js";
 
 const loggerFiles = log4js.getLogger("errorLogs");
+const loggerConsole = log4js.getLogger();
 
 mongoose.connect(config.mongodb.cnxStr, config.mongodb.options);
 
 mongoose.connection.on("open", () => {
-  console.log("Database ok!");
+  loggerConsole.info("Database ok!");
 });
 
 mongoose.connection.on("error", () => {
-  console.log("Database error");
+  loggerConsole.info("Database error");
 });
 
 class ContenedorMongoDb {

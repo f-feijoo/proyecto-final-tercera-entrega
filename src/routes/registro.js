@@ -8,10 +8,10 @@ let router = new Router();
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads");
+    cb(null, "src/public/uploads");
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now());
+    cb(null, file.fieldname + "-" + Date.now());
   },
 });
 
@@ -22,7 +22,8 @@ router.get("/", (req, res) => {
 });
 
 router.post(
-  "/", upload.single('avatar'),
+  "/",
+  upload.single("avatar"),
   passport.authenticate("registro", {
     successRedirect: "/login",
     failureRedirect: "/registro/errorRegistro",

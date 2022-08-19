@@ -1,0 +1,49 @@
+<nav class="sticky-top navbar navbar-dark bg-dark navbar-expand-lg">
+  <div class="container-fluid justify-content-between">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link me-2 btn btn-outline-primary"
+            aria-current="page"
+            onclick="location.href='/'"
+            >Inicio</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link me-2 btn btn-outline-primary"
+            onclick="location.href='/api/productos'"
+            >Productos</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link me-2 btn btn-outline-primary"
+            onclick="location.href='<%= nroC %>'"
+            >Carrito</a
+          >
+        </li>
+      </ul>
+    </div>
+    <a class="navbar-brand" href="/info">Bienvenid@, <%= user.nombre %></a>
+    <li class="nav-item">
+      <a
+        class="nav-link btn btn-outline-primary"
+        onclick="location.href='/logout'"
+        >Logout</a
+      >
+    </li>
+  </div>
+</nav>

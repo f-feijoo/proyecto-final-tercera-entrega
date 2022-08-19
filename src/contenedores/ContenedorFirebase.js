@@ -1,5 +1,9 @@
 import admin from "firebase-admin";
 import config from "../config.js";
+import log4js from "../loggers/config.js";
+
+const loggerFiles = log4js.getLogger("errorLogs");
+const loggerConsole = log4js.getLogger();
 
 admin.initializeApp({
   credential: admin.credential.cert(config.firebase),
@@ -7,7 +11,7 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-console.log("Firebase conectado");
+loggerConsole.info("Firebase conectado");
 
 class ContenedorFirebase {
   constructor(nombreColeccion) {
@@ -24,7 +28,7 @@ class ContenedorFirebase {
         return { ...data, id };
       }
     } catch (error) {
-      throw new Error(`Error al listar por id: ${error}`);
+      loggerFiles.error(error);
     }
   }
 
@@ -37,7 +41,7 @@ class ContenedorFirebase {
       });
       return resp;
     } catch (error) {
-      throw new Error(`Error al listar todo: ${error}`);
+      loggerFiles.error(error);
     }
   }
 
@@ -45,9 +49,9 @@ class ContenedorFirebase {
     try {
       let doc = this.coleccion.doc(`${Math.random()}`);
       await doc.create(obj);
-      return { ...obj, id: doc.id}
+      return { ...obj, id: doc.id };
     } catch (error) {
-      throw new Error(`Error al guardar: ${error}`);
+      loggerFiles.error(error);
     }
   }
 
@@ -56,7 +60,7 @@ class ContenedorFirebase {
       const actualizado = await this.coleccion.doc(elem.id).update(elem);
       return actualizado;
     } catch (error) {
-      throw new Error(`Error al actualizar: ${error}`);
+      loggerFiles.error(error);
     }
   }
 
@@ -65,7 +69,7 @@ class ContenedorFirebase {
       const borrado = await this.coleccion.doc(id).delete();
       return borrado;
     } catch (error) {
-      throw new Error(`Error al borrar: ${error}`);
+      loggerFiles.error(error);
     }
   }
 
@@ -76,7 +80,7 @@ class ContenedorFirebase {
       const promesas = ids.map((id) => this.borrar(id));
       const resultados = await Promise.allSettled(promesas);
     } catch (error) {
-      throw new Error(`Error al borrar: ${error}`);
+      loggerFiles.error(error);
     }
   }
 }

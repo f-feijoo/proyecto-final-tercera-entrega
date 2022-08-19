@@ -1,6 +1,5 @@
 import log4js from "log4js";
-
-log4js.configure({
+export default log4js.configure({
   appenders: {
     miLoggerConsole: { type: "console" },
     miWarnFile: { type: "file", filename: "warn.log" },

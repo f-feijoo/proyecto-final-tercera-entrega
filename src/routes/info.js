@@ -1,23 +1,12 @@
 import express from "express";
-import {
-  productosDao as productosApi,
-  carritosDao as carritosApi,
-} from "../daos/index.js";
+import { carritosDao as carritosApi } from "../daos/index.js";
 import Usuarios from "../daos/usuarios/UsuariosDao.js";
 
 const { Router } = express;
 
-const router = new Router();
+let router = new Router();
 
-function auth(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect("/login");
-  }
-}
-
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   let carrito = await carritosApi.mostrar({
     usuario: req.user.username,
     finalizado: false,
@@ -28,8 +17,7 @@ router.get("/", auth, async (req, res) => {
   } else {
     param = "#";
   }
-  res.render("index", {
-    data: await productosApi.mostrarTodos(),
+  res.render("info", {
     nroC: param,
     user: await Usuarios.mostrar({ username: req.user.username }),
   });

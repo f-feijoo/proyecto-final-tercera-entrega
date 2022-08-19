@@ -9,6 +9,7 @@
         <title>Carrito</title>
     </head>
     <body>
+        <%- include("templates/navbar")   %>
         <div class="container mt-5">
             <table class="table table-success table-striped table-hover">
                 <thead>
@@ -27,19 +28,26 @@
                     <th scope="row"><%= x.id %></th>
                     <td><%= x.nombre %></td>
                     <td><%= x.descripcion %></td>
-                    <td>$<%= x.precio %></td>
                     <td><img src=<%= x.img %> class="img-fluid" alt="..."></td>
-                    <td><form onsubmit="return deleteProd('/api/carritos/<%= idC %>/productos/<%= x.id %>').then(result => {alert(result.message)})">
+                    <td>$<%= x.precio %></td>
+                    <td><form onsubmit="return deleteProd('/api/carritos/<%= idCarrito %>/productos/<%= x.id %>').then(result => {alert(result.message)})">
                         <button class="btn btn-success" name="eliminar">X</button>
                     </form></td>
                     </tr>
                     <% }) %>
+                    <tr>
+                        <th scope="row">ID carrito: <%= idCarrito %></th>
+                        <td></td>
+                        <td></td>
+                        <td>Precio total:</td>
+                        <td>$<%=  %></td>
+                        <td></td>
+                        </tr>
                 </tbody>
             </table>
         </div>
         <div class="container mt-5">
-            <a class="btn btn-primary" href="/">Ir a página principal</a>
-            <a class="btn btn-primary" href="../../productos">Agregar productos</a>
+            <a class="btn btn-primary" href="/">Finalizar compra</a>
         </div>
     </body>
     </html>

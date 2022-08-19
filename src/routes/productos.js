@@ -3,6 +3,7 @@ import {
   productosDao as productosApi,
   carritosDao as carritosApi,
 } from "../daos/index.js";
+import Usuarios from "../daos/usuarios/UsuariosDao.js";
 
 const { Router } = express;
 
@@ -13,11 +14,13 @@ productosRouter.get("/", async (req, res) => {
     res.render("productosAdmin", { data: await productosApi.mostrarTodos() });
   } else {
     // ARREGLAR CUANDO NO HAR CARRITOS CARGADOS
-    let carritos = await carritosApi.mostrarTodos();
+    let carrito = await carritosApi.mostrar({
+      usuario: req.user.username,
+      finalizado: false,
+    });
     let param;
-    if (carritos.length > 0) {
-      let carrito = carritos[carritos.length - 1].id;
-      param = "carritos/" + carrito + "/productos";
+    if (carrito) {
+      param = "carritos/" + carrito.id + "/productos";
     } else {
       param = "#";
     }
@@ -25,6 +28,7 @@ productosRouter.get("/", async (req, res) => {
     res.render("productos", {
       data: await productosApi.mostrarTodos(),
       nroC: param,
+      user: await Usuarios.mostrar({ username: req.user.username }),
     });
   }
 });

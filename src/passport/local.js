@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import Usuarios from "../daos/usuarios/UsuariosDao.js";
 
-const mailAdministrador = 'franciscofeijoot@gmail.com'
+const mailAdministrador = "franciscofeijoot@gmail.com";
 
 const LocalStrategy = Strategy;
 
@@ -16,9 +16,9 @@ passport.use(
     },
     async (req, username, password, done) => {
       let file = req.file;
-            if (!file) {
-                return res.status(400).send({message: "Error al cargar imagen"})
-            }
+      if (!file) {
+        return res.status(400).send({ message: "Error al cargar imagen" });
+      }
       let user = { username: username };
       const usuarioBD = await Usuarios.mostrar(user);
       if (usuarioBD) {
@@ -31,7 +31,7 @@ passport.use(
         direccion: req.body.direccion,
         edad: req.body.edad,
         telefono: req.body.telefono,
-        avatar: file.path
+        avatar: "uploads/" + file.filename,
       });
       done(null, usuarioNuevo);
       // Aca va el envio del mail
@@ -66,6 +66,6 @@ passport.serializeUser((usuario, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const usuario = await Usuarios.mostrar({ id: id });
+  const usuario = await Usuarios.mostrar({ _id: id });
   done(null, usuario);
 });

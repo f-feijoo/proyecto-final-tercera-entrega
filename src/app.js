@@ -14,6 +14,7 @@ import login from "./routes/login.js";
 import registro from "./routes/registro.js";
 import logout from "./routes/logout.js";
 import errors from "./routes/error.js";
+import info from "./routes/info.js";
 
 import session from "express-session";
 import passport from "passport";
@@ -37,7 +38,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 600000,
+      maxAge: 6000000,
     },
   })
 );
@@ -49,7 +50,7 @@ app.use("/", index);
 app.use("/login", login);
 app.use("/logout", logout);
 app.use("/registro", registro);
+app.use("/info", info);
 app.use("/", errors);
-
 
 export default app;
